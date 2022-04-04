@@ -6,9 +6,9 @@ import com.covid19.Entity.NguoiDung;
 
 public interface INguoiDungService {
 
-	public NguoiDung addNguoiDung(NguoiDung nguoiDung);
+	public boolean addNguoiDung(NguoiDung nguoiDung);
 	
-	public NguoiDung updateNguoiDung(String uID, NguoiDung nguoiDung);
+	public boolean updateNguoiDung(String uID, NguoiDung nguoiDung);
 	
 	public boolean deleteNguoiDung(String uID);
 	

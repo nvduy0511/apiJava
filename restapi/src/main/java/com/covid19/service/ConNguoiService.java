@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.covid19.Entity.ConNguoi;
+import com.covid19.Entity.NguoiDung;
 import com.covid19.Repository.ConNguoiRepository;
+import com.covid19.Repository.NguoiDungRepository;
 
 @Service
 public class ConNguoiService implements IConNguoiService {
@@ -17,31 +19,39 @@ public class ConNguoiService implements IConNguoiService {
 	ConNguoiRepository conNguoiRepository;
 	
 	@Autowired
+	NguoiDungRepository nguoiDungRepository;
+	
+	@Autowired
     EntityManager entityManager;
 
 	@Override
-	public ConNguoi addConNguoi(ConNguoi connNguoi) {
-		conNguoiRepository.save(connNguoi);
-		return connNguoi;
+	public boolean addConNguoi(ConNguoi connNguoi) {
+		ConNguoi cn = conNguoiRepository.findOne(connNguoi.getCmnd());
+		if(cn == null)
+		{
+			conNguoiRepository.save(connNguoi);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
-	public ConNguoi updateConNguoi(String cmnd, ConNguoi conNguoi) {
+	public boolean updateConNguoi(String cmnd, ConNguoi conNguoi) {
 		if(conNguoi != null)
 		{
-			ConNguoi cn = conNguoiRepository.findOne(cmnd);
-			if(cn != null) 
-			{
-				cn.setDiaChi(conNguoi.getDiaChi());
-				cn.setGioiTinh(conNguoi.getGioiTinh());
-				cn.setHoTen(conNguoi.getHoTen());
-				cn.setNgaySinh(conNguoi.getNgaySinh());
-				cn.setSdt(conNguoi.getSdt());
-				conNguoiRepository.save(cn);
-			}
-			return cn;
+			ConNguoi cn = new ConNguoi();
+			cn = conNguoiRepository.findOne(cmnd);
+			if(cn == null) 
+				return false;
+			cn.setDiaChi(conNguoi.getDiaChi());
+			cn.setGioiTinh(conNguoi.getGioiTinh());
+			cn.setHoTen(conNguoi.getHoTen());
+			cn.setNgaySinh(conNguoi.getNgaySinh());
+			cn.setSdt(conNguoi.getSdt());
+			conNguoiRepository.save(cn);
+			return true;
 		}
-		return null;
+		return false;
 	}
 
 	@Override
@@ -65,6 +75,16 @@ public class ConNguoiService implements IConNguoiService {
 	public ConNguoi getOneConNguoi(String cmnd) {
 		
 		return conNguoiRepository.findOne(cmnd);
+	}
+
+	@Override
+	public ConNguoi getOneConNguoiByUID(String uID) {
+		NguoiDung nguoiDung = nguoiDungRepository.findOne(uID);
+		if(nguoiDung != null)
+		{
+			return nguoiDung.getCmnd_ConNguoi();
+		}
+		return null;
 	}
 	
 	

@@ -6,14 +6,16 @@ import com.covid19.Entity.ConNguoi;
 
 public interface IConNguoiService {
 	
-	public ConNguoi addConNguoi(ConNguoi connNguoi);
+	public boolean addConNguoi(ConNguoi connNguoi);
 	
-	public ConNguoi updateConNguoi(String cmnd, ConNguoi conNguoi);
+	public boolean updateConNguoi(String cmnd, ConNguoi conNguoi);
 	
 	public boolean deleteConNguoi(String cmnd);
 	
 	public List<ConNguoi> getAllConNguoi();
 	
 	public ConNguoi getOneConNguoi(String cmnd);
+	
+	public ConNguoi getOneConNguoiByUID(String uID);
 
 }

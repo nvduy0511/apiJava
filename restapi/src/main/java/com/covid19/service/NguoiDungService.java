@@ -20,13 +20,13 @@ public class NguoiDungService implements INguoiDungService {
     EntityManager entityManager;
 	
 	@Override
-	public NguoiDung addNguoiDung(NguoiDung nguoiDung) {
+	public boolean addNguoiDung(NguoiDung nguoiDung) {
 		nguoiDungRepository.save(nguoiDung);
-		return nguoiDung;
+		return true;
 	}
 
 	@Override
-	public NguoiDung updateNguoiDung(String uID, NguoiDung nguoiDung) {
+	public boolean updateNguoiDung(String uID, NguoiDung nguoiDung) {
 		if(nguoiDung != null)
 		{
 			NguoiDung nd = nguoiDungRepository.findOne(uID);
@@ -34,10 +34,10 @@ public class NguoiDungService implements INguoiDungService {
 			{
 				nd.setCmnd_ConNguoi(nguoiDung.getCmnd_ConNguoi());
 				nguoiDungRepository.save(nd);
+				return true;
 			}
-			return nd;
 		}
-		return null;
+		return false;
 	}
 
 	@Override

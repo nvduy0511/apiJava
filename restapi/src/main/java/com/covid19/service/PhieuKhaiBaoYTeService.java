@@ -17,34 +17,21 @@ public class PhieuKhaiBaoYTeService implements IPhieuKhaiBaoYTeService {
 	@Autowired
 	PhieuKhaiBaoYTeRepository phieuKhaiBaoYTeRepository;
 	
+	
 	@Autowired
     EntityManager entityManager;
 	
 	@Override
-	public PhieuKhaiBaoYTe addPhieuKhaiBaoYTe(PhieuKhaiBaoYTe phieuKhaiBaoYTe) {
+	public boolean addPhieuKhaiBaoYTe(PhieuKhaiBaoYTe phieuKhaiBaoYTe) {
+		if(phieuKhaiBaoYTe == null)
+			return false;
 		phieuKhaiBaoYTeRepository.save(phieuKhaiBaoYTe);
-		return phieuKhaiBaoYTe;
+		return true;
 	}
-
 	@Override
-	public PhieuKhaiBaoYTe updatePhieuKhaiBaoYTe(int maPhieuKhaiBao, PhieuKhaiBaoYTe phieuKhaiBaoYTe) {
-		if(phieuKhaiBaoYTe != null)
-		{
-			PhieuKhaiBaoYTe pkbyt = phieuKhaiBaoYTeRepository.findOne(maPhieuKhaiBao);
-			if(pkbyt != null)
-			{
-				pkbyt.setCauHoi1(phieuKhaiBaoYTe.isCauHoi1());
-				pkbyt.setCauHoi2(phieuKhaiBaoYTe.isCauHoi2());
-				pkbyt.setCauHoi3(phieuKhaiBaoYTe.isCauHoi3());
-				pkbyt.setCauHoi3_1(phieuKhaiBaoYTe.isCauHoi3_1());
-				pkbyt.setCauHoi3_2(phieuKhaiBaoYTe.isCauHoi3_2());
-				pkbyt.setCauHoi3_3(phieuKhaiBaoYTe.isCauHoi3_3());
-				pkbyt.setCccd_ConNguoi(phieuKhaiBaoYTe.getCccd_ConNguoi());
-				phieuKhaiBaoYTeRepository.save(pkbyt);
-			}
-			return pkbyt;
-		}
-		return null;
+	public boolean updatePhieuKhaiBaoYTe(int maPhieuKhaiBao, PhieuKhaiBaoYTe phieuKhaiBaoYTe) {
+
+		return false;
 	}
 
 	@Override
@@ -66,6 +53,11 @@ public class PhieuKhaiBaoYTeService implements IPhieuKhaiBaoYTeService {
 	@Override
 	public PhieuKhaiBaoYTe getOnePhieuKhaiBaoYTe(int maPhieuKhaiBao) {
 		return phieuKhaiBaoYTeRepository.findOne(maPhieuKhaiBao);
+	}
+	
+	@Override
+	public List<PhieuKhaiBaoYTe> getListPhieuKhaiBaoByCmndNguoiKhaiBao(String cmnd) {
+		return phieuKhaiBaoYTeRepository.findByCmnd_NguoiKhaiBao(cmnd);
 	}
 
 	

@@ -8,5 +8,4 @@ import com.covid19.Entity.ConNguoi;
 @Repository
 public interface ConNguoiRepository extends JpaRepository<ConNguoi, String> {
 	
-
 }
